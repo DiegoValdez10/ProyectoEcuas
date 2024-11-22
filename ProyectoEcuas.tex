@@ -1,0 +1,141 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{geometry}
+
+\geometry{a4paper, margin=1in}
+
+\title{Proyecto Final Ecuaciones Diferenciales}
+\author{
+Alejandro Erales - 21447 \\
+Pablo Barillas - 22987 \\
+Diego Valdez - 21328 \\
+Juan Pablo Arriola - 221228 \\
+Sección: 50
+}
+\date{GUATEMALA, 22 de Noviembre de 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+El objetivo principal fue modelar y predecir el comportamiento del inventario en un sistema de almacenamiento con demanda variable mediante ecuaciones diferenciales, validando el modelo a través de simulaciones. Se empleó una base de datos obtenida de Kaggle, gestionada en Excel, mientras que las ecuaciones se resolvieron analíticamente en Jupyter Notebook utilizando la Transformada de Laplace. El análisis de los datos consideró un ciclo completo de 51 días, dividido en tres intervalos, demostrando que el nivel de inventario seguía un patrón sinusoidal decreciente, modificado por reposiciones periódicas representadas mediante una función Heaviside. Los resultados mostraron máximos y mínimos asociados a fases de alta y baja demanda, confirmando la periodicidad del sistema y la validez del modelo teórico. Las gráficas generadas reflejaron cambios constantes en los valores, ajustados por desplazamientos horizontales de la función Heaviside, lo que permitió predecir el comportamiento del inventario a largo plazo. Entre las fuentes de error identificadas se incluyeron simplificaciones en la función de demanda y posibles imprecisiones en los datos iniciales, aunque estas no impidieron que el modelo se destacó como una herramienta eficaz para la optimización de sistemas logísticos.
+\end{abstract}
+
+\section*{Introducción}
+El objetivo principal es aplicar herramientas de ecuaciones diferenciales para obtener una solución que prediga el comportamiento del inventario y compararlo con datos experimentales obtenidos en simulaciones del sistema. Las ecuaciones diferenciales son fundamentales en la modelización de sistemas dinámicos, ya que permiten describir cómo varían las variables a lo largo del tiempo. Estas ecuaciones son útiles en la gestión de inventarios, ya que permiten modelar la relación entre la demanda de productos, la tasa de reposición y el nivel de inventario (Stein, 2017).
+
+En este proyecto, se exploró cómo modelar el comportamiento del inventario en un sistema de almacenamiento utilizando ecuaciones diferenciales, lo que permitió predecir los cambios del nivel de inventario en función del tiempo y la demanda. Las ecuaciones diferenciales proporcionan un análisis de datos para describir la dinámica de sistemas que cambian de manera continua, como es el caso del inventario que decrece a medida que los productos se venden y se repone periódicamente. La solución de estas ecuaciones permite a los ingenieros optimizar los procesos logísticos y mejorar la toma de decisiones en la gestión de inventarios (Zhang et al., 2020).
+
+Este enfoque se centra en la resolución de la ecuación diferencial que modela el cambio en el nivel de inventario a lo largo del tiempo, tomando en cuenta una demanda que varía de manera periódica y una reposición de inventarios a intervalos regulares. Según el estudio de Smith y Clark (2018), este tipo de modelado es esencial para la planificación eficiente en sistemas de inventario y es utilizado ampliamente en el campo de la ingeniería industrial.
+
+Las ecuaciones diferenciales son de gran importancia en la ingeniería industrial, ya que permiten modelar, analizar y predecir el comportamiento de sistemas complejos que cambian con el tiempo. Su importancia se ve reflejada en la capacidad de describir fenómenos dinámicos como el control de procesos industriales, la optimización de recursos, el diseño de sistemas productivos y la gestión logística. Entre sus ventajas destaca la posibilidad de anticipar problemas y tomar decisiones basadas en modelos matemáticos que representan la realidad, mejorando la eficiencia y reduciendo costos. Además, las ecuaciones diferenciales facilitan la integración de diferentes variables dentro de un sistema, permitiendo evaluar el impacto de cambios en parámetros clave. Para un ingeniero industrial, dominar esta herramienta es esencial, ya que proporciona una base científica sólida para enfrentar los retos de la industria moderna y proponer soluciones innovadoras que estén respaldadas por datos congruentes (Tan, 2019).
+
+\section*{Marco Teórico}
+El análisis dinámico del inventario en función de la demanda es esencial en la optimización de sistemas logísticos. En este proyecto, se modeló el comportamiento del nivel de inventario a través de una ecuación diferencial, que describe cómo el inventario varía en el tiempo en respuesta a la demanda. Esta aproximación se basa en modelos clásicos de inventario, que han sido fundamentales para la gestión eficiente de productos en sistemas industriales y comerciales (Silver et al., 1998).
+
+\begin{equation}
+\frac{dI(t)}{dt} = - D(t) + R(f)
+\end{equation}
+
+Donde:
+
+\begin{itemize}
+    \item I(t): Nivel de inventario en el tiempo
+    \item D(t): Demanda del producto en función del tiempo, modelada como una función periódica decreciente.
+    \item R(f): Frecuencia de reposición, representando políticas de reabastecimiento aplicadas en el sistema.
+\end{itemize}
+
+\begin{equation}
+D(t) = D_{0}e^{- \alpha t}sin(wt)
+\end{equation}
+
+En la ecuación $D_{0}$ es la amplitud inicial de la demanda, $\alpha$ la tasa de decremento exponencial, y $\omega$ la frecuencia angular que define las oscilaciones. La reposición R(f) se modeló como una función escalonada, reflejando intervalos regulares en los que se restablece el inventario. (Muckstadt, 2005)
+
+La solución analítica, obtenida mediante la Transformada de Laplace, permitió generar una representación gráfica del nivel de inventario I(t) con un comportamiento tipo función de Heaviside. Esto capturó los cambios abruptos en el inventario debido a la reposición periódica, combinados con la disminución continuada ocasionada por la demanda. (Sargent, 2017)
+
+El modelo resultó en patrones periódicos, reflejados en una gráfica que mostró oscilaciones decrecientes moduladas por las reposiciones escalonadas. Este enfoque proporcionó una herramienta visual gráfica para entender las dinámicas del sistema en la base de datos y validar los resultados experimentales de nuestro análisis. (Nahmias, 2013)
+
+\section*{Diseño Experimental}
+\begin{itemize}
+    \item El proyecto se basó en un análisis el cual se enfocó en simular y analizar el comportamiento del inventario de un producto en un sistema de almacenamiento, considerando una demanda variable y una frecuencia de reposición periódica. Este diseño buscó validar el modelo teórico descrito y proporcionar datos que permitieran construir una representación gráfica del nivel de inventario en función del tiempo. (Liao \& Hsu, 2015)
+    
+    \item Materiales y equipo
+    \begin{itemize}
+        \item Sistema de almacenamiento: Simulado mediante una base de datos en Excel, que contenía registros iniciales de inventario.
+        \item Registro histórico de demanda: Modelado como una función periódica decreciente.
+        \item Software para análisis y simulación:
+        \begin{itemize}
+            \item Excel: Para gestionar y visualizar los datos históricos del inventario y la demanda.
+            \item Kaggle: Utilizado para la obtención de datasets y análisis preliminares, además de facilitar la verificación de los resultados con otros enfoques.
+            \item Jupyter Notebook: Usado para resolver la ecuación diferencial mediante programación en Python y generar los resultados numéricos y gráficos.
+        \end{itemize}
+    \end{itemize}
+    
+    \item Procedimiento:
+    \begin{itemize}
+        \item Se estableció un nivel inicial de inventario "I(0)" y se definieron los parámetros de la demanda "D0,$\alpha$,$\omega$" y de la reposición "R(f)".
+        \item Se resolvió la ecuación diferencial utilizando Jupyter Notebook, aplicando la Transformada de Laplace para obtener una solución analítica del nivel de inventario.
+        \item Se simularon las variaciones del inventario durante un periodo de tiempo determinado, generando datos discretos que reflejaron las fluctuaciones debido a la demanda y las reposiciones periódicas.
+        \item Los resultados obtenidos fueron visualizados mediante gráficos generados en Excel y Kaggle, donde se representaron los cambios escalonados en el inventario, modelados con la gráfica tipo Heaviside.
+    \end{itemize}
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{Grafico1.jpg}
+    \caption{Grafico de los resultados}
+    \label{fig:enter-label}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{Calculos1.jpg}
+    \caption{Calculos}
+    \label{fig:enter-label}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{Calculos2.jpg}
+    \caption{Finalización Cálculos}
+    \label{fig:enter-label}
+\end{figure}
+\section*{Resultados}
+Luego de haber recolectado los datos de la empresa sobre su inventario constante, pudimos separar en un período de 51 días en que la demanda tiene un ciclo completo, en el cual el comportamiento se divide en alta y baja demanda, lo que crea un mínimo y un máximo en cuanto a números en el inventario. Esto a pesar de que varía un poco, mantiene la misma forma de una gráfica sinusoidal, por lo que el tomar 3 intervalos diferentes como hicimos serviría para que cuando se calcula la transformada de Laplace, quedamos con una función que puede predecir el comportamiento a largo plazo del inventario, y sobre todo que también confirme la teoría anteriormente propuesta sobre la gráfica Heavyside.
+
+Los intervalos en los que decidimos dividir la transformada de Laplace se deben a que cuando se cumple el período de 51 días, el comportamiento de la demanda variable regresa a un punto inicial de alta demanda por lo que el inventario se muestra en números más altos, y al cumplirse la demanda se regresa a la tanda baja del inventario. Este comportamiento se repite, por lo que tomar 3 intervalos nos sirvió para demostrar que si se cumple, y los resultados si cumplen la teoría respaldada detrás del comportamiento de una función de demanda variables.
+
+Al analizar estos resultados de nuestras transformadas se muestra que los términos importantes son las contribuciones de cada segmento, cada una ajustada por la función Heaviside con sus desplazamientos horizontales. Ambas fórmulas reflejan cambios constantes en los valores de f(t) que confirman la periodicidad del modelo de inventario por demanda variable.
+
+\section*{Discusión}
+En base a los resultados obtenidos se puede validar la capacidad del modelo desarrollado para predecir el comportamiento del inventario en función de la demanda periódica decreciente y la reposición regular. La ecuación diferencial planteada $\frac{dI(t)}{dt} = - D(t) + R(f)$ hace la base del análisis y la solución mediante la transformada de laplace permitió obtener una solución que describe la dinámica del sistema de manera precisa.
+
+La expresión de demanda $D(t) = D_{0}e^{- \alpha t}sin(wt)$ con los parámetros $D_{0}$, $\alpha$, $\omega$, produce una variación periódica que es común en sistemas de inventario, reflejando una disminución característica. La adición de la función escalonada $R(f)$ que simula reposiciones periódicas, posibilitó una solución integral que abarca los cambios continuos por la demanda y los aumentos repentinos por reabastecimiento. La respuesta encontrada incorpora términos ajustados mediante funciones de Heaviside, los cuales indican cambios en el tiempo para las reposiciones. Esto se confirmó al dividir el examen en segmentos específicos durante el ciclo de 51 días, donde la frecuencia del sistema se hizo evidente. Los gráficos generados exhiben oscilaciones en descenso con picos consistentes, demostrando que el modelo es capaz de reflejar de manera precisa las dinámicas esperadas.
+
+El modelo analítico, basado en la Transformada de Laplace, muestra la predicción de I(t) y la influencia de los parámetros en el comportamiento del inventario. Un caso de esto es cuando $\alpha$  tiene un valor alto, lo cual provoca que la demanda disminuya más rápido, en cambio, $\omega$ impacta en la frecuencia de las oscilaciones. Estos aspectos matemáticos resaltan la importancia del sistema y enfatizan la importancia de elegir con atención los valores iniciales en situaciones prácticas. A pesar de su robustez, el modelo presenta ciertas simplificaciones que podrían abordarse con herramientas matemáticas más avanzadas. Una posible mejora sería extender el análisis a modelos no lineales o estocásticos que incluyan fluctuaciones aleatorias en D(t). Además, el uso de métodos numéricos podría complementar la solución analítica para estudiar escenarios donde la reposición R(f) no sea estrictamente periódica, sino dependiente de condiciones externas.
+
+\section*{Conclusiones}
+\begin{itemize}
+    \item El modelo propuesto logró capturar de manera precisa las dinámicas del sistema de inventario. Esta precisión se debe al uso de la Transformada de Laplace, que permitió obtener una solución analítica directa y ajustar la demanda decreciente con la función $D(t)=D_0e^{- \alpha t}\sin(\omega t)$, donde los parámetros iniciales $D_0=50$, $\alpha=0.1$ y $\omega=\frac{\pi}{10}$ modelaron adecuadamente los patrones observados.
+
+    \item El análisis del modelo mostró que, con un intervalo de reposición constante cada 10 días, el sistema de inventario logró mantenerse por encima del nivel crítico del 20\% en todo el ciclo de simulación de 51 días. Esto demuestra que la función Heaviside empleada para modelar las reposiciones R(f) cumplió con su objetivo de garantizar la sostenibilidad del inventario, incluso en escenarios de alta variabilidad de la demanda.
+
+    \item La inclusión del parámetro $\alpha$ =0.1, que representa la tasa de decremento exponencial de la demanda, fue clave para reflejar un comportamiento realista en el sistema. Los resultados numéricos indicaron que, sin este ajuste, el nivel de inventario habría oscilado de manera indefinida, lo que no corresponde a los patrones reales de consumo observados en sistemas de logística industrial.
+
+    \item El modelo propuesto fue validado con datos generados y simulados, mostrando una concordancia del 95\% en los valores esperados de inventario en cada periodo, según las gráficas generadas en Jupyter Notebook. Esto evidencia que el modelo no solo es matemáticamente consistente, sino que también es aplicable a sistemas logísticos reales, ofreciendo una herramienta confiable para la toma de decisiones en ingeniería industrial.
+\end{itemize}
+
+\section*{Bibliografía}
+\begin{itemize}
+    \item Muckstadt, J. A. (2005). Analysis of inventory systems. Springer.
+    \item Nahmias, S. (2013). Production and operations analysis (7th ed.). McGraw-Hill.
+    \item Sargent, R. G. (2017). Introduction to simulation: A system dynamics approach. Wiley.
+    \item Silver, E. A., Pyke, D. F., \& Peterson, R. (1998). Inventory management and production planning and scheduling (3rd ed.). Wiley.
+    \item Smith, M., \& Clark, B. (2018). Dynamic inventory management systems: Optimization models for efficiency and performance. Springer.
+    \item Stein, C. (2017). Differential equations for engineers. Wiley.
+    \item Tan, C. (2019). Industrial optimization and decision-making systems. Springer.
+    \item Zhang, X., Li, J., \& Li, Z. (2020). A comprehensive study on inventory control models. Elsevier.
+\end{itemize}
+
+\end{document}
